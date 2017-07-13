@@ -1,0 +1,19 @@
+Hola mundo
+como estas?
+a=10
+f=77
+if pipas then hola
+bueno
+ktal
+
+esto es una prueba
+#esto un comentario bueno 
+Volando
+callback dolar
+
+self.window.add(vbox)
+label = gtk.Label("<span size='38000'><b> Gestión del apagado </b></span>")
+label.set_use_markup(True)
+tabla.attach(label, 1, 2, 1, 2, yoptions=FILL, ypadding=100)
+self.reloj = gtk.Label()
+tabla.attach(self.reloj, 1, 2, 2, 13, yoptions=FILL, ypadding=10)
