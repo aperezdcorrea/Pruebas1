@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+# IMPORTS
+
+import gobject
+import pygtk
+pygtk.require('2.0')
+import gtk    
+
+
+# CONSTANTES
+TIEMPO_LECTURA = 1
+CONTADOR1 = 60
+CONTADOR2 = 120
+
+
+# CLASES
+class Lectura_Consumo:
+    
+    def __init__(self):
+        # Lista donde vamos a guardar las lecturas de la utlima hora
+        self.listaLecturas = []
+        # Acumulado de los ultimos 30 segundos
+        self.acumulador = 0
+        # Acumulado de la ultima hora
+        self.suma = 0
+        # Repeticiones 
+        self.contadorTiempo = 0
+        
+        gobject.timeout_add_seconds(TIEMPO_LECTURA, self.callback)
+        print "pipas"
+        
+    def callback(self):
+        print "pipas1"
+        # valorLeido = jh.Get("\\TABLE\\'PLC:\\tablas\\nombres.tab'\\ID\\%s\\DIBUJO" %(str(estado.keys()[0]))).values()[0]  
+        valorLeido = 0.5
+        self.contadorTiempo += 1
+        self.acumulador += valorLeido
+        if self.contadorTiempo == CONTADOR1:
+            self.listaLecturas.append(self.acumulador)
+            self.suma += self.acumulador
+            self.contadorTiempo = 0
+            self.acumulador = 0
+            
+            if len(self.listaLecturas) > CONTADOR2:
+                self.suma -= self.listaLecturas.pop(0)
+                # jh.Put({(GLOBAL_SYMBOL + "MP_Habilita_Compensacion_Dilataciones") : self.suma})
+                print self.suma
+                
+        print "fin"
+        return True
+
+
+
+# MAIN
+if __name__=='__main__':
+    lecturas=Lectura_Consumo()
+    gtk.main()
